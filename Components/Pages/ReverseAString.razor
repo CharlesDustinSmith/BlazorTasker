@@ -1,4 +1,5 @@
 ﻿@page "/reverseastring"
+@using System.Data.SqlTypes
 
 <PageTitle>Reverse A String</PageTitle>
 
@@ -10,13 +11,18 @@
         <button class="btn btn-primary" @onclick="ReverseMe" >Reverse Me</button>
     </div>
     <hr />
-    <div>@displayMessage</div>
+    @if(reversedMessage != "")
+    {
+        <Message DisplayMessage="@displayMessage" Title="Results" CssClass=@alertType></Message>
+    }
 </div>
 
 @code {
     private string message = "Reverse Me";
     private string reversedMessage = "";
     private string displayMessage = "";
+    private bool isPalindrome = false;
+    private string alertType = "";
     private void ReverseMe() 
     {
         reversedMessage = "";
@@ -25,6 +31,17 @@
         {
             reversedMessage += message[i]; 
         }
+        if(message.Equals(reversedMessage, StringComparison.OrdinalIgnoreCase))
+        {
+            isPalindrome = true;
+            alertType = "alert-success";
+        }
+        else
+        {
+            isPalindrome = false;
+            alertType = "alert-danger";
+        }
+
         displayMessage = $"The reverse messge of {message} is {reversedMessage}";
     }
 }

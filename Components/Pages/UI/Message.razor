@@ -1,0 +1,25 @@
+<div class="alert @CssClass border border-1 border-dark">
+    <h4>@Title</h4>
+    <div>@DisplayMessage</div>
+</div>
+
+
+@code {
+    /// <summary>
+    /// The Message to Display in the message box, required. 
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string DisplayMessage { get; set; } = "";
+
+    /// <summary>
+    /// The Title to display above the message, optional.
+    /// </summary>
+    [Parameter]
+    public string Title { get; set; } = "";
+
+    /// <summary>
+    /// Optional CSS class to apply to the message box. Default is "alert-success". Use Bootstrap alert classes like "alert-info", "alert-warning", "alert-danger", etc.
+    /// </summary>
+    [Parameter]
+    public string CssClass { get; set; } = "alert-success";
+}
