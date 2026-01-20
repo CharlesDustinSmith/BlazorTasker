@@ -6,17 +6,35 @@
             <img src="/img/floatingCity.png" alt="Floating City" width="300" />
         </div
         <div>  
-            <EditForm Model="ti">
+            <EditForm Model="ti" OnValidSubmit="addTask">
                 <div class="d-flex flew-row gap-2">
                     <InputText class="form-control" placeholder="Enter a new task..." @bind-Value="ti.Name"/>
-                    <button class="btn btn-primary" type="submit">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+                <div>
+                    <ValidationMessage For="() => ti.Name"></ValidationMessage>
                 </div>
             </EditForm>
         </div>
         <hr />
+        <div class="vstack">
+            @foreach(var lineItem in taskerItems)
+            {
+                <TaskerLine Item="lineItem"></TaskerLine>
+            }
+
+        </div>
     </div>
 </div>
 
 @code {
     private TaskerItem ti = new();
+    private List<TaskerItem> taskerItems = new();
+    
+    private void addTask()
+    {
+        ti.Id = Guid.NewGuid();
+        taskerItems.Add(ti);
+        ti = new();
+    }
 }
